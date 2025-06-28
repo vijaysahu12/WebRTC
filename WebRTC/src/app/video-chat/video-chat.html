@@ -1,0 +1,14 @@
+<div>
+  <label>
+    Room ID:
+    <input [(ngModel)]="roomId" />
+  </label>
+  <button (click)="startCall()" [disabled]="!roomId">Start Call</button>
+  <button (click)="joinCall()" [disabled]="!roomId">Join Call</button>
+  <button (click)="hangUp()" [disabled]="!roomId">Hang Up</button>
+</div>
+
+<div class="videos" *ngIf="localStream">
+  <video #local autoplay muted [srcObject]="localStream"></video>
+  <video #remote autoplay [srcObject]="remoteStream"></video>
+</div>
