@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AngularFireDatabase } from '@angular/fire/database';
+import { AngularFireDatabase } from '@angular/fire/compat/database';
 import { BehaviorSubject } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
@@ -45,7 +45,7 @@ export class WebrtcService {
 
     const offer = await this.pc!.createOffer();
     await this.pc!.setLocalDescription(offer);
-    await this.db.object(`rooms/${roomId}`).update({ offer: offer.toJSON() });
+    await this.db.object(`rooms/${roomId}`).update({ offer: offer });
   }
 
   async createAnswer(roomId: string, offer: RTCSessionDescriptionInit) {
@@ -58,7 +58,7 @@ export class WebrtcService {
     await this.pc!.setRemoteDescription(new RTCSessionDescription(offer));
     const answer = await this.pc!.createAnswer();
     await this.pc!.setLocalDescription(answer);
-    await this.db.object(`rooms/${roomId}`).update({ answer: answer.toJSON() });
+    await this.db.object(`rooms/${roomId}`).update({ answer: answer });
   }
 
   listenForOffer(roomId: string) {
